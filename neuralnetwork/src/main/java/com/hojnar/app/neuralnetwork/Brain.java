@@ -70,6 +70,17 @@ public abstract class Brain
 	{
 		return Math.tanh(x);
 	}
+	void tanh(SimpleMatrix a)
+	{
+		for(int i = 0; i < a.numRows(); i++)
+		{
+			for(int j = 0; j < a.numCols(); j++)
+			{
+				double val = a.get(i,j);
+				a.set(i, j, tanh(val));
+			}
+		}
+	}
 	double dtanh(double y)
 	{
 		return 1 / (Math.pow(Math.cosh(y), 2));
