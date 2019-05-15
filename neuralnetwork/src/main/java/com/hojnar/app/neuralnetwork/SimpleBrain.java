@@ -40,7 +40,7 @@ public class SimpleBrain extends Brain
 		Random rand = new Random();
 		if(rand.nextDouble() < rate)
 		{
-			return tanh(val + rand.nextGaussian() * .1);
+			return tanh(val + rand.nextGaussian() * intensity);
 		}
 		return val;
 	}
