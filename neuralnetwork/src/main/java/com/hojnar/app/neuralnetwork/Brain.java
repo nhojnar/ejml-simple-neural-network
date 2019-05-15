@@ -75,7 +75,7 @@ public abstract class Brain
 		return 1 / (Math.pow(Math.cosh(y), 2));
 	}
 	
-	/*
+	
 	public void exportBrain(String name)
 	{
 		SimpleMatrix export = new SimpleMatrix(hiddenNodes + outputNodes + 1, (inputNodes > hiddenNodes ? (inputNodes>2?inputNodes:3) : (hiddenNodes>2?hiddenNodes:3)));
@@ -105,12 +105,43 @@ public abstract class Brain
 		} catch(Exception e)
 		{
 			e.printStackTrace();
+			return;
 		}
+		System.out.printf("Exported brain as %s.brain\n", name);
 	}
 	
 	public void importBrain(String name)
 	{
+		SimpleMatrix imp = new SimpleMatrix(0,0);
+		try {
+		imp.loadCSV(name+".brain");
+		}  catch(Exception e)
+		{
+			e.printStackTrace();
+			return;
+		}
 		
+		inputNodes = (int)imp.get(0, 0);
+		hiddenNodes = (int)imp.get(0,1);
+		outputNodes = (int)imp.get(0,2);
+		
+		inputToHidden = new SimpleMatrix(inputNodes, hiddenNodes);
+		for(int i = 0; i < inputToHidden.numRows(); i++)
+		{
+			for(int j = 0; j < inputToHidden.numCols(); j++)
+			{
+				inputToHidden.set(i, j, imp.get(i+1, j));
+			}
+		}
+		hiddenToOutput = new SimpleMatrix(hiddenNodes, outputNodes);
+		for(int i = 0; i < hiddenToOutput.numRows(); i++)
+		{
+			for(int j = 0; j < hiddenToOutput.numCols(); j++)
+			{
+				hiddenToOutput.set(i, j, imp.get(inputToHidden.numCols()+i, j));
+			}
+		}
+		System.out.printf("Imported %s.brain", name);
 	}
-	*/
+	
 }
