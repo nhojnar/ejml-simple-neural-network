@@ -1,11 +1,10 @@
 package com.hojnar.app.neuralnetwork;
+
 import java.util.Random;
+import org.ejml.simple.SimpleMatrix;
 
-import org.ejml.simple.*;
-
-public class Brain
+public abstract class Brain 
 {
-	
 	SimpleMatrix inputToHidden, hiddenToOutput;
 	SimpleMatrix inputLayer, hiddenLayer, outputLayer;
 	int inputNodes, hiddenNodes, outputNodes;
@@ -22,7 +21,6 @@ public class Brain
 		hiddenLayer = new SimpleMatrix(1, hiddenNodes);
 		outputLayer = new SimpleMatrix(1, outputNodes);
 	}
-	
 	public Brain(int inputNodes, int hiddenNodes, int outputNodes)
 	{
 		this.inputNodes = inputNodes;
@@ -38,48 +36,15 @@ public class Brain
 		outputLayer = new SimpleMatrix(1, outputNodes);
 	}
 	
-	public double[] predict(double[] input)
-	{
-		inputLayer = new SimpleMatrix(1, inputNodes, true, input);
-		
-		hiddenLayer = inputLayer.mult(inputToHidden);
-		sigmoid(hiddenLayer);
-		
-		outputLayer = hiddenLayer.mult(hiddenToOutput);
-		sigmoid(outputLayer);
-		
-		double[] output = new double[outputNodes];
-		for(int i = 0; i < outputNodes; i++)
-			output[i] = outputLayer.get(i);
-		return output;
-	}
+	public abstract double[] predict(double[] input);
 	
-	double mut(double val, double rate)
+	public SimpleMatrix getFirstMatrix()
 	{
-		if(Math.random() < rate)
-		{
-			return val + sigmoid(Math.random()) * .1;
-		}
-		return val;
+		return inputToHidden.copy();
 	}
-	void mutate(double rate)
+	public SimpleMatrix getSecondMatrix()
 	{
-		for(int i = 0; i < inputToHidden.numRows(); i++)
-		{
-			for(int j = 0; j < inputToHidden.numCols(); j++)
-			{
-				double val = inputToHidden.get(i, j);
-				inputToHidden.set(i, j, mut(val, rate));
-			}
-		}
-		for(int i = 0; i < hiddenToOutput.numRows(); i++)
-		{
-			for(int j = 0; j < hiddenToOutput.numCols(); j++)
-			{
-				double val = hiddenToOutput.get(i, j);
-				hiddenToOutput.set(i, j, mut(val, rate));
-			}
-		}
+		return hiddenToOutput.copy();
 	}
 	
 	double sigmoid(double x)
@@ -109,4 +74,43 @@ public class Brain
 	{
 		return 1 / (Math.pow(Math.cosh(y), 2));
 	}
+	
+	/*
+	public void exportBrain(String name)
+	{
+		SimpleMatrix export = new SimpleMatrix(hiddenNodes + outputNodes + 1, (inputNodes > hiddenNodes ? (inputNodes>2?inputNodes:3) : (hiddenNodes>2?hiddenNodes:3)));
+		
+		export.set(0, 0, inputNodes);
+		export.set(0, 1, hiddenNodes);
+		export.set(0, 2, outputNodes);
+		
+		for(int i = 0; i < inputToHidden.numRows(); i++)
+		{
+			for(int j = 0; j < inputToHidden.numCols(); j++)
+			{
+				export.set(i+1, j, inputToHidden.get(i, j));
+			}
+		}
+		
+		for(int i = 0; i < hiddenToOutput.numRows(); i++)
+		{
+			for(int j = 0; j < hiddenToOutput.numCols(); j++)
+			{
+				export.set(inputToHidden.numCols()+i, j, hiddenToOutput.get(i, j));
+			}
+		}
+		
+		try {
+		export.saveToFileCSV(name+".brain");
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void importBrain(String name)
+	{
+		
+	}
+	*/
 }
