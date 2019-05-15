@@ -5,7 +5,10 @@ import org.ejml.simple.*;
 
 public class SimpleBrain extends Brain
 {
-	
+	private SimpleBrain()
+	{
+		super(0,0,0);
+	}
 	public SimpleBrain(SimpleBrain copy)
 	{
 		super(copy);
@@ -42,7 +45,7 @@ public class SimpleBrain extends Brain
 		}
 		return val;
 	}
-	void mutate(double rate)
+	public void mutate(double rate)
 	{
 		for(int i = 0; i < inputToHidden.numRows(); i++)
 		{
@@ -62,5 +65,11 @@ public class SimpleBrain extends Brain
 		}
 	}
 	
+	public static SimpleBrain newFromFile(String fileName)
+	{
+		SimpleBrain temp = new SimpleBrain();
+		temp.importBrain(fileName);
+		return temp;
+	}
 
 }
