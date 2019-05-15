@@ -7,7 +7,7 @@ public abstract class Brain
 {
 	SimpleMatrix inputToHidden, hiddenToOutput;
 	SimpleMatrix inputLayer, hiddenLayer, outputLayer;
-	int inputNodes, hiddenNodes, outputNodes;
+	public int inputNodes, hiddenNodes, outputNodes;
 	
 	public Brain(Brain copy)
 	{
