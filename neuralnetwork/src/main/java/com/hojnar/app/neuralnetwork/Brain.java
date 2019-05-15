@@ -112,15 +112,15 @@ public abstract class Brain
 	
 	public void importBrain(String name)
 	{
-		SimpleMatrix imp = new SimpleMatrix(0,0);
+		SimpleMatrix temp = new SimpleMatrix(0,0);
+		SimpleMatrix imp;
 		try {
-		imp.loadCSV(name+".brain");
+			imp = temp.loadCSV(name+".brain");
 		}  catch(Exception e)
 		{
 			e.printStackTrace();
 			return;
 		}
-		
 		inputNodes = (int)imp.get(0, 0);
 		hiddenNodes = (int)imp.get(0,1);
 		outputNodes = (int)imp.get(0,2);

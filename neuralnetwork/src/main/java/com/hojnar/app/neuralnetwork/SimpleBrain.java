@@ -1,6 +1,4 @@
 package com.hojnar.app.neuralnetwork;
-import java.util.Random;
-
 import org.ejml.simple.*;
 
 public class SimpleBrain extends Brain
