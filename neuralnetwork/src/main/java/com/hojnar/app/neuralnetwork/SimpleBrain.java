@@ -6,6 +6,14 @@ import org.ejml.simple.*;
 public class SimpleBrain extends Brain
 {
 	
+	public static void main(String[] args)
+	{
+		SimpleBrain b = new SimpleBrain(3, 5, 2);
+		System.out.println(b);
+		b.predict(new double[] {.97, -.3, .32});
+		System.out.println("\n\n");
+	}
+	
 	public SimpleBrain(SimpleBrain copy)
 	{
 		super(copy);

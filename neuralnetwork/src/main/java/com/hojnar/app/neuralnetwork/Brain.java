@@ -144,4 +144,45 @@ public abstract class Brain
 		System.out.printf("Imported %s.brain", name);
 	}
 	
+	@Override
+	public String toString()
+	{
+		String s = "";
+		s += "Input Nodes: ";
+		for(int i = 0; i < inputLayer.numCols(); i++)
+		{
+			s += inputLayer.get(i) + " ";
+		}
+		s += "\nFirst Matrix:\n";
+		for(int i = 0; i < inputToHidden.numRows(); i++)
+		{
+			for(int j = 0; j < inputToHidden.numCols(); j++)
+			{
+				s += inputToHidden.get(i, j) + " ";
+			}
+			s += "\n";
+		}
+		s += "Hidden Nodes: ";
+		for(int i = 0; i < hiddenLayer.numCols(); i++)
+		{
+			s += hiddenLayer.get(i) + " ";
+		}
+		s += "\nSecond Matrix\n";
+		for(int i = 0; i < hiddenToOutput.numRows(); i++)
+		{
+			for(int j = 0; j < hiddenToOutput.numCols(); j++)
+			{
+				s += hiddenToOutput.get(i, j) + " ";
+			}
+			s += "\n";
+		}
+		s += "\nOutput Nodes: ";
+		for(int i = 0; i < outputLayer.numCols(); i++)
+		{
+			s += outputLayer.get(i) + " ";
+		}
+		s += "\n";
+		return s;
+	}
+	
 }
