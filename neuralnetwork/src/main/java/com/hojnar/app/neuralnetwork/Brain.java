@@ -89,7 +89,7 @@ public abstract class Brain
 	
 	public void exportBrain(String name)
 	{
-		SimpleMatrix export = new SimpleMatrix(hiddenNodes + outputNodes + 1, (inputNodes > hiddenNodes ? (inputNodes>2?inputNodes:3) : (hiddenNodes>2?hiddenNodes:3)));
+		SimpleMatrix export = new SimpleMatrix(hiddenNodes + inputNodes + 1, (hiddenNodes > outputNodes) ? hiddenNodes : outputNodes);
 		
 		export.set(0, 0, inputNodes);
 		export.set(0, 1, hiddenNodes);
@@ -107,7 +107,7 @@ public abstract class Brain
 		{
 			for(int j = 0; j < hiddenToOutput.numCols(); j++)
 			{
-				export.set(inputToHidden.numCols()+i, j, hiddenToOutput.get(i, j));
+				export.set(inputToHidden.numRows()+i+1, j, hiddenToOutput.get(i, j));
 			}
 		}
 		
@@ -153,6 +153,14 @@ public abstract class Brain
 			}
 		}
 		System.out.printf("Imported %s.brain", name);
+	}
+	
+	public void print()
+	{
+		System.out.println("Input to Hidden");
+		inputToHidden.print();
+		System.out.println("Hidden to Output");
+		hiddenToOutput.print();
 	}
 	
 }

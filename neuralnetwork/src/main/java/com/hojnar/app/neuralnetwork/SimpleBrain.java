@@ -23,7 +23,7 @@ public class SimpleBrain extends Brain
 		inputLayer = new SimpleMatrix(1, inputNodes, true, input);
 		
 		hiddenLayer = inputLayer.mult(inputToHidden);
-		tanh(hiddenLayer);
+		//tanh(hiddenLayer);
 		
 		outputLayer = hiddenLayer.mult(hiddenToOutput);
 		sigmoid(outputLayer);
@@ -40,7 +40,7 @@ public class SimpleBrain extends Brain
 		Random rand = new Random();
 		if(rand.nextDouble() < rate)
 		{
-			return tanh(val + rand.nextGaussian() * intensity);
+			return val + rand.nextGaussian() * intensity;
 		}
 		return val;
 	}
