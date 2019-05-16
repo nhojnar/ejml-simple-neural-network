@@ -4,7 +4,7 @@
 
   <groupId>com.hojnar.app</groupId>
   <artifactId>neuralnetwork</artifactId>
-  <version>0.2.1</version>
+  <version>0.2.5</version>
   <packaging>jar</packaging>
 
   <name>neuralnetwork</name>
@@ -24,7 +24,7 @@
     
     <dependency>
     	<groupId>org.ejml</groupId>
-    	<artifactId>ejml-all</artifactId>
+    	<artifactId>ejml-simple</artifactId>
     	<version>0.37.1</version>
     </dependency>
   </dependencies>

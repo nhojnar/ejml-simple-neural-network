@@ -1,11 +1,13 @@
 package com.hojnar.app.neuralnetwork;
-import java.util.Random;
-
 import org.ejml.simple.*;
+import java.util.Random;
 
 public class SimpleBrain extends Brain
 {
-	
+	private SimpleBrain()
+	{
+		super(0,0,0);
+	}
 	public static void main(String[] args)
 	{
 		SimpleBrain b = new SimpleBrain(3, 5, 2);
@@ -29,7 +31,7 @@ public class SimpleBrain extends Brain
 		inputLayer = new SimpleMatrix(1, inputNodes, true, input);
 		
 		hiddenLayer = inputLayer.mult(inputToHidden);
-		sigmoid(hiddenLayer);
+		//tanh(hiddenLayer);
 		
 		outputLayer = hiddenLayer.mult(hiddenToOutput);
 		sigmoid(outputLayer);
@@ -41,23 +43,23 @@ public class SimpleBrain extends Brain
 	}
 	
 
-	
-	double mut(double val, double rate)
+	double mut(double val, double rate, double intensity)
 	{
-		if(Math.random() < rate)
+		Random rand = new Random();
+		if(rand.nextDouble() < rate)
 		{
-			return val + sigmoid(Math.random()) * .1;
+			return val + rand.nextGaussian() * intensity;
 		}
 		return val;
 	}
-	void mutate(double rate)
+	public void mutate(double rate, double intensity)
 	{
 		for(int i = 0; i < inputToHidden.numRows(); i++)
 		{
 			for(int j = 0; j < inputToHidden.numCols(); j++)
 			{
 				double val = inputToHidden.get(i, j);
-				inputToHidden.set(i, j, mut(val, rate));
+				inputToHidden.set(i, j, mut(val, rate, intensity));
 			}
 		}
 		for(int i = 0; i < hiddenToOutput.numRows(); i++)
@@ -65,10 +67,20 @@ public class SimpleBrain extends Brain
 			for(int j = 0; j < hiddenToOutput.numCols(); j++)
 			{
 				double val = hiddenToOutput.get(i, j);
-				hiddenToOutput.set(i, j, mut(val, rate));
+				hiddenToOutput.set(i, j, mut(val, rate, intensity));
 			}
 		}
 	}
+	public void mutate(double rate)
+	{
+		mutate(rate, 0.15);
+	}
 	
+	public static SimpleBrain newFromFile(String fileName)
+	{
+		SimpleBrain temp = new SimpleBrain();
+		temp.importBrain(fileName);
+		return temp;
+	}
 
 }
