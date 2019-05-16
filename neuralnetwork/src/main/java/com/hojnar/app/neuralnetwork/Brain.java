@@ -28,8 +28,8 @@ public abstract class Brain
 		this.outputNodes = outputNodes;
 		
 		Random rand = new Random();
-		inputToHidden = SimpleMatrix.random_DDRM(inputNodes, hiddenNodes, 0, 1, rand);
-		hiddenToOutput = SimpleMatrix.random_DDRM(hiddenNodes, outputNodes, 0, 1, rand);
+		inputToHidden = SimpleMatrix.random_DDRM(inputNodes, hiddenNodes, -1, 1, rand);
+		hiddenToOutput = SimpleMatrix.random_DDRM(hiddenNodes, outputNodes, -1, 1, rand);
 		
 		inputLayer = new SimpleMatrix(1, inputNodes);
 		hiddenLayer = new SimpleMatrix(1, hiddenNodes);

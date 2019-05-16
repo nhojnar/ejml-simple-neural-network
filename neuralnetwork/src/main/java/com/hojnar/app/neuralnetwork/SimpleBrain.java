@@ -13,7 +13,10 @@ public class SimpleBrain extends Brain
 		SimpleBrain b = new SimpleBrain(3, 5, 2);
 		System.out.println(b);
 		b.predict(new double[] {.97, -.3, .32});
-		System.out.println("\n\n");
+		System.out.println("\n\n"+b+"\n\n");
+		b.mutate(0.7, 0.35);
+		b.predict(new double[] {.97, -.3, .32});
+		System.out.println(b);
 	}
 	
 	public SimpleBrain(SimpleBrain copy)
